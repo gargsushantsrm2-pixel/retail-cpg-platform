@@ -1,0 +1,76 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: cpg_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-cpg_platform}
+      POSTGRES_USER: ${POSTGRES_USER:-cpg_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cpg_secure_pass_2024}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-cpg_user} -d ${POSTGRES_DB:-cpg_platform}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cpg_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cpg_backend
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-cpg_user}:${POSTGRES_PASSWORD:-cpg_secure_pass_2024}@postgres:5432/${POSTGRES_DB:-cpg_platform}
+      API_SECRET_KEY: ${API_SECRET_KEY:-dev-secret-key-change-in-production}
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    networks:
+      - cpg_network
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: cpg_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    networks:
+      - cpg_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  cpg_network:
+    driver: bridge

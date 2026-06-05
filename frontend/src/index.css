@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  :root {
+    color-scheme: dark;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #12152A;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #2D3460;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3D4478;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-bg-card border border-border rounded-xl shadow-card;
+  }
+  .card-elevated {
+    @apply bg-bg-elevated border border-border rounded-xl shadow-card;
+  }
+  .btn-primary {
+    @apply bg-accent-blue hover:bg-blue-500 text-white font-medium px-4 py-2 rounded-lg
+           transition-all duration-150 text-sm active:scale-95;
+  }
+  .btn-secondary {
+    @apply bg-bg-elevated hover:bg-border text-text-secondary hover:text-text-primary
+           border border-border font-medium px-4 py-2 rounded-lg transition-all duration-150 text-sm;
+  }
+  .label-xs {
+    @apply text-[0.68rem] font-semibold uppercase tracking-widest text-text-secondary;
+  }
+  .tab-list {
+    @apply flex gap-1 p-1 bg-bg-elevated rounded-lg border border-border;
+  }
+  .tab-item {
+    @apply px-4 py-1.5 rounded-md text-sm font-medium transition-all duration-150
+           text-text-secondary hover:text-text-primary cursor-pointer select-none;
+  }
+  .tab-item-active {
+    @apply bg-bg-card text-text-primary shadow-card;
+  }
+}
