@@ -64,43 +64,43 @@ FEATURES: List[Feature] = [
     # M1 Pricing Optimization & Elasticity Engine
     _f(1, 1, "Pricing Optimization & Elasticity Engine", "Multi-Variant Price Elasticity Modeling", FeatureTier.PREDICTIVE, ImplStatus.LIVE),
     _f(2, 1, "Pricing Optimization & Elasticity Engine", "Cross-Elasticity & Cannibalization Tracker", FeatureTier.PREDICTIVE, ImplStatus.LIVE),
-    _f(3, 1, "Pricing Optimization & Elasticity Engine", "Dynamic Competitor Indexing & Alerts", FeatureTier.INDEXING),
+    _f(3, 1, "Pricing Optimization & Elasticity Engine", "Dynamic Competitor Indexing & Alerts", FeatureTier.INDEXING, ImplStatus.LIVE),
     # M2 TPM/TPO
     _f(4, 2, "Trade Promotion Management & Optimization", "Predictive Promotion Scenario Simulator", FeatureTier.PREDICTIVE, ImplStatus.LIVE),
     _f(5, 2, "Trade Promotion Management & Optimization", "Multi-Level Promotion Calendar & Workspace", FeatureTier.INDEXING, ImplStatus.LIVE),
     _f(6, 2, "Trade Promotion Management & Optimization", "Post-Event ROI Balanced Scorecard", FeatureTier.DIAGNOSTIC, ImplStatus.LIVE),
     # M3 PPA Designer
-    _f(7, 3, "Price Pack Architecture Designer", "Margin Contribution & Per-Ounce Matrix", FeatureTier.INDEXING),
-    _f(8, 3, "Price Pack Architecture Designer", "Premiumization & Channel Pack Alignment", FeatureTier.PRESCRIPTIVE),
+    _f(7, 3, "Price Pack Architecture Designer", "Margin Contribution & Per-Ounce Matrix", FeatureTier.INDEXING, ImplStatus.LIVE),
+    _f(8, 3, "Price Pack Architecture Designer", "Premiumization & Channel Pack Alignment", FeatureTier.PRESCRIPTIVE, ImplStatus.LIVE),
     # M4 Trade Terms & G2N
     _f(9, 4, "Trade Terms & Gross-to-Net Controls", "Automated Workflow Approval Engines", FeatureTier.PRESCRIPTIVE, ImplStatus.LIVE),
     _f(10, 4, "Trade Terms & Gross-to-Net Controls", "Trade Fund Budgetary Allocation & Guardrails", FeatureTier.INDEXING, ImplStatus.LIVE),
     _f(11, 4, "Trade Terms & Gross-to-Net Controls", "Compliance Auditing & Claims Reconciliation", FeatureTier.DIAGNOSTIC, ImplStatus.LIVE),
     # M5 Assortment, Distribution & Demand Forecasting
-    _f(12, 5, "Assortment, Distribution & Demand Forecasting", "Store-Level Assortment Recommendation Engine", FeatureTier.PRESCRIPTIVE),
-    _f(13, 5, "Assortment, Distribution & Demand Forecasting", "ML Demand Forecasting with Disruption Indicators", FeatureTier.PREDICTIVE),
+    _f(12, 5, "Assortment, Distribution & Demand Forecasting", "Store-Level Assortment Recommendation Engine", FeatureTier.PRESCRIPTIVE, ImplStatus.LIVE),
+    _f(13, 5, "Assortment, Distribution & Demand Forecasting", "ML Demand Forecasting with Disruption Indicators", FeatureTier.PREDICTIVE, ImplStatus.LIVE),
     # M6 Data Ingestion & Interoperability
-    _f(14, 6, "Data Ingestion & Interoperability", "Automated Ingestion, Harmonization & Cleansing", FeatureTier.DIAGNOSTIC),
-    _f(15, 6, "Data Ingestion & Interoperability", "OpenAPI Connected Extensibility", FeatureTier.DIAGNOSTIC),
+    _f(14, 6, "Data Ingestion & Interoperability", "Automated Ingestion, Harmonization & Cleansing", FeatureTier.DIAGNOSTIC, ImplStatus.LIVE),
+    _f(15, 6, "Data Ingestion & Interoperability", "OpenAPI Connected Extensibility", FeatureTier.DIAGNOSTIC, ImplStatus.LIVE),
     # M7 AI Prescriptive Analytics
-    _f(16, 7, "AI Prescriptive Analytics", "Automated Strategic Growth Decision Guides", FeatureTier.PRESCRIPTIVE),
+    _f(16, 7, "AI Prescriptive Analytics", "Automated Strategic Growth Decision Guides", FeatureTier.PRESCRIPTIVE, ImplStatus.LIVE),
     # M8 Commercial Investment Allocation & ROI
-    _f(17, 8, "Commercial Investment Allocation & ROI", "Cross-Lever Investment Optimization Workspace", FeatureTier.PRESCRIPTIVE),
+    _f(17, 8, "Commercial Investment Allocation & ROI", "Cross-Lever Investment Optimization Workspace", FeatureTier.PRESCRIPTIVE, ImplStatus.LIVE),
     _f(18, 8, "Commercial Investment Allocation & ROI", "Internal Servicing Cost-to-Serve Modeler", FeatureTier.PREDICTIVE, ImplStatus.LIVE),
-    _f(19, 8, "Commercial Investment Allocation & ROI", "B2B Commercial Deal & Contract Pricer", FeatureTier.PREDICTIVE),
+    _f(19, 8, "Commercial Investment Allocation & ROI", "B2B Commercial Deal & Contract Pricer", FeatureTier.PREDICTIVE, ImplStatus.LIVE),
     # M9 Demand Driver Analytics
-    _f(20, 9, "Demand Driver Analytics", "Segmented Consumer Demand Response Dashboard", FeatureTier.PREDICTIVE),
-    _f(21, 9, "Demand Driver Analytics", "Promotion Duration & Timing Optimizer", FeatureTier.PREDICTIVE),
+    _f(20, 9, "Demand Driver Analytics", "Segmented Consumer Demand Response Dashboard", FeatureTier.PREDICTIVE, ImplStatus.LIVE),
+    _f(21, 9, "Demand Driver Analytics", "Promotion Duration & Timing Optimizer", FeatureTier.PREDICTIVE, ImplStatus.LIVE),
     # M10 Dynamic Elasticity & Non-Linear Demand
     _f(22, 10, "Dynamic Elasticity & Non-Linear Demand", "Context-Dependent Elasticity Field Matrix", FeatureTier.PREDICTIVE, ImplStatus.LIVE),
     _f(23, 10, "Dynamic Elasticity & Non-Linear Demand", "Non-Linear Demand Function Core", FeatureTier.PREDICTIVE, ImplStatus.LIVE),
     # M11 Micro-Segmentation & WTP Guardrails
-    _f(24, 11, "Micro-Segmentation & WTP Guardrails", "Raw-Data Distribution Viewer (Anti-Aggregation)", FeatureTier.DIAGNOSTIC),
+    _f(24, 11, "Micro-Segmentation & WTP Guardrails", "Raw-Data Distribution Viewer (Anti-Aggregation)", FeatureTier.DIAGNOSTIC, ImplStatus.LIVE),
     _f(25, 11, "Micro-Segmentation & WTP Guardrails", "95% Correlation Confidence Engine", FeatureTier.PREDICTIVE, ImplStatus.LIVE),
     # M12 Behavioral Pricing & Survey Realism
-    _f(26, 12, "Behavioral Pricing & Survey Realism", "Cross-Option Survey Calibration Engine", FeatureTier.PREDICTIVE),
+    _f(26, 12, "Behavioral Pricing & Survey Realism", "Cross-Option Survey Calibration Engine", FeatureTier.PREDICTIVE, ImplStatus.LIVE),
     # M13 Agent-Based Simulation
-    _f(27, 13, "Agent-Based Simulation", "Agent-Based Virtual Shopper Simulator", FeatureTier.PREDICTIVE),
+    _f(27, 13, "Agent-Based Simulation", "Agent-Based Virtual Shopper Simulator", FeatureTier.PREDICTIVE, ImplStatus.LIVE),
     # M14 Commodity Volatility & Margin Buffers
     _f(28, 14, "Commodity Volatility & Margin Buffers", "Multi-Tier Raw Ingredient Cost Tracker", FeatureTier.INDEXING, ImplStatus.LIVE),
     _f(29, 14, "Commodity Volatility & Margin Buffers", "Temporal Price Change Frequency Gatekeeper", FeatureTier.PRESCRIPTIVE, ImplStatus.LIVE),
@@ -113,22 +113,22 @@ FEATURES: List[Feature] = [
     # M17 RGM Maturity Diagnostics
     _f(34, 17, "RGM Maturity Diagnostics", "RGM Capability & Execution Maturity Assessment", FeatureTier.DIAGNOSTIC, ImplStatus.LIVE),
     # M18 Surgical Price-Tiering & Inflation
-    _f(35, 18, "Surgical Price-Tiering & Inflation", "Granular Multi-Tier Pricing Tier Editor", FeatureTier.INDEXING),
+    _f(35, 18, "Surgical Price-Tiering & Inflation", "Granular Multi-Tier Pricing Tier Editor", FeatureTier.INDEXING, ImplStatus.LIVE),
     _f(36, 18, "Surgical Price-Tiering & Inflation", "Arbitrary Price-Smoothing Alert System", FeatureTier.PRESCRIPTIVE, ImplStatus.LIVE),
     # M19 3-C Joint Optimization Matrix
     _f(37, 19, "3-C Joint Optimization Matrix", "Retailer Gross Margin Protection Tracker", FeatureTier.DIAGNOSTIC, ImplStatus.LIVE),
     _f(38, 19, "3-C Joint Optimization Matrix", "Joint 3-C Optimization Scorecard", FeatureTier.PREDICTIVE, ImplStatus.LIVE),
     # M20 Cross-Functional Operating Model Governance
-    _f(39, 20, "Cross-Functional Operating Model Governance", "Cross-Functional RMM Workflow Orchestrator", FeatureTier.PRESCRIPTIVE),
+    _f(39, 20, "Cross-Functional Operating Model Governance", "Cross-Functional RMM Workflow Orchestrator", FeatureTier.PRESCRIPTIVE, ImplStatus.LIVE),
     _f(40, 20, "Cross-Functional Operating Model Governance", "SKU Proliferation & Complexity Cost Governor", FeatureTier.PREDICTIVE, ImplStatus.LIVE),
     # M21 Stakeholder Personalization
-    _f(41, 21, "Stakeholder Personalization", "Stakeholder-Specific UX Views", FeatureTier.INDEXING),
+    _f(41, 21, "Stakeholder Personalization", "Stakeholder-Specific UX Views", FeatureTier.INDEXING, ImplStatus.LIVE),
     # M22 Change-Management Scope & Horizon Scaffolding
     _f(42, 22, "Change-Management Scaffolding", "Progressive Scope Scaffolding Engine", FeatureTier.DIAGNOSTIC, ImplStatus.LIVE),
     # M23 Omni-Channel Synchronization
-    _f(43, 23, "Omni-Channel Synchronization", "Omni-Channel Shelf Velocity & Constraint Synchronizer", FeatureTier.PREDICTIVE),
+    _f(43, 23, "Omni-Channel Synchronization", "Omni-Channel Shelf Velocity & Constraint Synchronizer", FeatureTier.PREDICTIVE, ImplStatus.LIVE),
     # M24 Contextual Value Indices
-    _f(44, 24, "Contextual Value Indices", "Attribute-Based Portfolio Price Architecture Indexer", FeatureTier.INDEXING),
+    _f(44, 24, "Contextual Value Indices", "Attribute-Based Portfolio Price Architecture Indexer", FeatureTier.INDEXING, ImplStatus.LIVE),
 ]
 
 _BY_ID: Dict[int, Feature] = {f.id: f for f in FEATURES}
