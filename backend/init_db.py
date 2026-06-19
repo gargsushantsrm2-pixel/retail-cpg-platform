@@ -8,8 +8,8 @@ import logging
 import sys
 import os
 
-# Allow running as: python init_db.py
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Allow running as: python init_db.py (adds /app to path)
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 logging.basicConfig(
     level=logging.INFO,
@@ -43,8 +43,8 @@ def check_seeded(engine) -> bool:
 
 
 def main():
-    from backend.core.database import engine, Base, SessionLocal
-    from backend.services.data_generator import run_all_seeds
+    from core.database import engine, Base, SessionLocal
+    from services.data_generator import run_all_seeds
 
     logger.info("=" * 60)
     logger.info("Retail & CPG Decision Intelligence Platform")
@@ -73,7 +73,7 @@ def main():
     logger.info("Starting FastAPI server on port 8000...")
     import uvicorn
     uvicorn.run(
-        "backend.main:app",
+        "main:app",
         host="0.0.0.0",
         port=8000,
         reload=False,
