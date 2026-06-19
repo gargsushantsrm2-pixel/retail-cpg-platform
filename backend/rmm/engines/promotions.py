@@ -61,30 +61,37 @@ class PromoSimulatorEngine(OptimizationEngine):
         unit_cogs = safe_div(prod["cogs"].sum(), prod["volume_cases"].sum())
 
         disc = frac(discount_pct)
-        # Base lift from promo mechanic + extra lift from depth of discount via
-        # the SKU's elasticity (deeper discount -> more lift).
-        base_lift = _lift_midpoint(promo_type)
-        elasticity = D(abs(_quick_elasticity(prod)))
-        depth_lift = frac(disc * elasticity)             # e.g. 15% disc * 2.5 = 37.5%
-        total_lift = base_lift + depth_lift
-
         dur = max(1, int(duration_weeks))
         promo_price = money(avg_price * (D(1) - disc))
-        promo_weekly_vol = money(base_weekly_vol * (D(1) + total_lift))
-        incremental_weekly_vol = money(promo_weekly_vol - base_weekly_vol)
 
+        # Volume response mirrors the demand model: a multiplicative price-effect
+        # (1-disc)^elasticity combined with the promo mechanic's display/feature
+        # lift. Elasticity magnitude is clamped to a sane [1, 4] band so observed
+        # promo-confounded slopes don't blow the prediction up.
+        base_lift = _lift_midpoint(promo_type)                       # mechanic lift
+        elasticity = _clamp(abs(_quick_elasticity(prod)), 1.0, 4.0)
+        price_effect = D(str((1.0 - float(disc)) ** (-elasticity)))  # > 1
+        promo_weekly_vol = money(base_weekly_vol * price_effect * (D(1) + base_lift))
+        total_lift = safe_div(promo_weekly_vol - base_weekly_vol, base_weekly_vol)
+
+        incremental_weekly_vol = money(promo_weekly_vol - base_weekly_vol)
         total_promo_vol = money(promo_weekly_vol * dur)
         incremental_vol = money(incremental_weekly_vol * dur)
         incremental_rev = money(incremental_vol * promo_price)
 
-        # Trade spend = discount on ALL promoted units + fixed execution fees.
-        discount_cost = money(total_promo_vol * avg_price * disc)
+        # Trade spend = discount subsidy on ALL promoted units + fixed fees.
         fees = (DISPLAY_FEE if display else D(0)) + (FEATURE_FEE if feature else D(0))
+        discount_cost = money(total_promo_vol * avg_price * disc)
         trade_spend = money(discount_cost + fees)
 
-        incremental_gp = money(incremental_vol * (promo_price - unit_cogs))
-        company_net = money(incremental_gp - fees)         # GP already nets the discount via promo_price
-        roi = safe_div(incremental_rev - trade_spend, trade_spend)
+        # Company net = (promo GP) - (baseline GP that would have happened anyway)
+        # - fixed fees. This is the true incremental profit and is consistent with
+        # trade_spend, so ROI cannot contradict the net-profit sign.
+        baseline_gp_week = base_weekly_vol * (avg_price - unit_cogs)
+        promo_gp_week = promo_weekly_vol * (promo_price - unit_cogs)
+        company_net = money((promo_gp_week - baseline_gp_week) * dur - fees)
+        incremental_gp = money((promo_gp_week - baseline_gp_week) * dur)
+        roi = safe_div(company_net, trade_spend)
 
         # Retailer view.
         retail_price = money(avg_price * DEFAULT_RETAIL_MARKUP)
@@ -166,6 +173,10 @@ class PostEventROIEngine(OptimizationEngine):
             data={"product_id": product_id, "customer_id": customer_id, "by_promo_type": results},
             telemetry={"promo_rows": int(len(promo))},
         )
+
+
+def _clamp(x: float, lo: float, hi: float) -> float:
+    return max(lo, min(hi, x))
 
 
 def _quick_elasticity(prod) -> float:
