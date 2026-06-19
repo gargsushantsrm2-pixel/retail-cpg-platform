@@ -1,6 +1,7 @@
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Cell,
   ResponsiveContainer, LineChart, Line, Legend, ReferenceLine, PieChart, Pie,
+  AreaChart, Area,
 } from 'recharts'
 import PageHeader from '../components/ui/PageHeader'
 import { Tabs } from '../components/ui/Tabs'
@@ -183,7 +184,7 @@ export default function SupplyChain() {
                   <div className="card p-5">
                     <h3 className="text-sm font-semibold mb-4">Fill Rate by Category — CY2024</h3>
                     {(() => {
-                      const byCat = (svc?.by_category ?? []).filter(d => d.year === 2024)
+                      const byCat = (svc?.by_category ?? []).filter((d: any) => d.year === 2024)
                       return (
                         <ResponsiveContainer width="100%" height={220}>
                           <BarChart data={byCat} layout="vertical" margin={{ top: 0, right: 40, left: 0, bottom: 0 }}>
@@ -194,7 +195,7 @@ export default function SupplyChain() {
                             <ReferenceLine x={95} stroke="#F59E0B" strokeDasharray="3 3" />
                             <Bar dataKey="fill_rate" radius={[0, 3, 3, 0]}
                               label={{ position: 'right', fill: '#94A3B8', fontSize: 10, formatter: (v: number) => `${v?.toFixed(1)}%` }}>
-                              {byCat.map((d, i) => (
+                              {byCat.map((d: any, i: number) => (
                                 <Cell key={i} fill={d.fill_rate >= 95 ? '#10B981' : d.fill_rate >= 90 ? '#F59E0B' : '#EF4444'} opacity={0.85} />
                               ))}
                             </Bar>
@@ -234,11 +235,11 @@ export default function SupplyChain() {
                 {alertsLoad ? <Spinner /> : (
                   <div className="space-y-2">
                     {[...(alerts ?? [])].sort((a, b) => {
-                      const order = { CRITICAL: 0, HIGH: 1, MEDIUM: 2 }
+                      const order: Record<string, number> = { CRITICAL: 0, HIGH: 1, MEDIUM: 2 }
                       return order[a.urgency] - order[b.urgency]
                     }).map((alert, i) => {
-                      const colorMap = { CRITICAL: '#EF4444', HIGH: '#F59E0B', MEDIUM: '#3B82F6' }
-                      const bgMap   = { CRITICAL: 'rgba(239,68,68,0.06)', HIGH: 'rgba(245,158,11,0.06)', MEDIUM: 'rgba(59,130,246,0.06)' }
+                      const colorMap: Record<string, string> = { CRITICAL: '#EF4444', HIGH: '#F59E0B', MEDIUM: '#3B82F6' }
+                      const bgMap: Record<string, string>   = { CRITICAL: 'rgba(239,68,68,0.06)', HIGH: 'rgba(245,158,11,0.06)', MEDIUM: 'rgba(59,130,246,0.06)' }
                       const color = colorMap[alert.urgency]
                       const bg    = bgMap[alert.urgency]
                       return (
