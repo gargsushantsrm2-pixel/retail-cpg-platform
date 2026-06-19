@@ -8,7 +8,7 @@ import logging
 import sys
 import os
 
-# Add /app to path so `import backend.xxx` works
+# Insert /app into path so `import backend.xxx` resolves to /app/backend/
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 logging.basicConfig(
