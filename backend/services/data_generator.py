@@ -19,61 +19,21 @@ np.random.seed(42)
 # ── Master data definitions ─────────────────────────────────────────────────
 
 PRODUCTS = [
-    # Beverages – 12 SKUs
+    # Beverages – 2 SKUs
     {"id": "BEV-001", "name": "BrewMaster Premium Coffee 24x12oz", "brand": "BrewMaster", "category": "Beverages", "subcategory": "Coffee", "pack": "24x12oz", "price": 38.40, "cogs": 22.10, "elasticity": -2.8},
-    {"id": "BEV-002", "name": "BrewMaster Classic Coffee 24x12oz", "brand": "BrewMaster", "category": "Beverages", "subcategory": "Coffee", "pack": "24x12oz", "price": 28.80, "cogs": 15.50, "elasticity": -3.1},
     {"id": "BEV-003", "name": "VoltEdge Energy 24x16oz", "brand": "VoltEdge", "category": "Beverages", "subcategory": "Energy", "pack": "24x16oz", "price": 45.60, "cogs": 20.80, "elasticity": -2.3},
-    {"id": "BEV-004", "name": "VoltEdge Zero Sugar 24x16oz", "brand": "VoltEdge", "category": "Beverages", "subcategory": "Energy", "pack": "24x16oz", "price": 47.20, "cogs": 21.40, "elasticity": -2.1},
-    {"id": "BEV-005", "name": "PureFlow Spring Water 24x16.9oz", "brand": "PureFlow", "category": "Beverages", "subcategory": "Water", "pack": "24x16.9oz", "price": 14.40, "cogs": 5.20, "elasticity": -3.5},
-    {"id": "BEV-006", "name": "PureFlow Sparkling 24x12oz", "brand": "PureFlow", "category": "Beverages", "subcategory": "Water", "pack": "24x12oz", "price": 18.00, "cogs": 7.80, "elasticity": -2.9},
-    {"id": "BEV-007", "name": "SunHarvest Orange Juice 12x52oz", "brand": "SunHarvest", "category": "Beverages", "subcategory": "Juice", "pack": "12x52oz", "price": 42.00, "cogs": 26.40, "elasticity": -2.6},
-    {"id": "BEV-008", "name": "SunHarvest Apple Juice 12x52oz", "brand": "SunHarvest", "category": "Beverages", "subcategory": "Juice", "pack": "12x52oz", "price": 38.40, "cogs": 23.20, "elasticity": -2.7},
-    {"id": "BEV-009", "name": "CrispTea Unsweetened 12x18.5oz", "brand": "CrispTea", "category": "Beverages", "subcategory": "RTD Tea", "pack": "12x18.5oz", "price": 24.00, "cogs": 11.50, "elasticity": -2.4},
-    {"id": "BEV-010", "name": "CrispTea Green 12x18.5oz", "brand": "CrispTea", "category": "Beverages", "subcategory": "RTD Tea", "pack": "12x18.5oz", "price": 25.20, "cogs": 12.10, "elasticity": -2.2},
-    {"id": "BEV-011", "name": "FitFuel Protein Shake 12x14oz", "brand": "FitFuel", "category": "Beverages", "subcategory": "Nutrition", "pack": "12x14oz", "price": 52.80, "cogs": 28.40, "elasticity": -1.8},
-    {"id": "BEV-012", "name": "FitFuel Electrolyte 24x12oz", "brand": "FitFuel", "category": "Beverages", "subcategory": "Sports", "pack": "24x12oz", "price": 36.00, "cogs": 16.80, "elasticity": -2.0},
-    # Snacks – 10 SKUs
+    # Snacks – 2 SKUs
     {"id": "SNK-001", "name": "CrunchCraft Kettle Chips 12x8oz", "brand": "CrunchCraft", "category": "Snacks", "subcategory": "Chips", "pack": "12x8oz", "price": 34.80, "cogs": 15.60, "elasticity": -2.2},
-    {"id": "SNK-002", "name": "CrunchCraft Tortilla Chips 12x11oz", "brand": "CrunchCraft", "category": "Snacks", "subcategory": "Chips", "pack": "12x11oz", "price": 31.20, "cogs": 13.80, "elasticity": -2.4},
-    {"id": "SNK-003", "name": "GoldenBake Crackers 12x13.7oz", "brand": "GoldenBake", "category": "Snacks", "subcategory": "Crackers", "pack": "12x13.7oz", "price": 26.40, "cogs": 11.20, "elasticity": -2.0},
-    {"id": "SNK-004", "name": "GoldenBake Whole Grain 12x9oz", "brand": "GoldenBake", "category": "Snacks", "subcategory": "Crackers", "pack": "12x9oz", "price": 28.80, "cogs": 13.50, "elasticity": -1.9},
     {"id": "SNK-005", "name": "NutHouse Mixed Nuts 12x10oz", "brand": "NutHouse", "category": "Snacks", "subcategory": "Nuts", "pack": "12x10oz", "price": 58.80, "cogs": 38.40, "elasticity": -1.7},
-    {"id": "SNK-006", "name": "NutHouse Almonds 12x6oz", "brand": "NutHouse", "category": "Snacks", "subcategory": "Nuts", "pack": "12x6oz", "price": 44.40, "cogs": 29.20, "elasticity": -1.8},
-    {"id": "SNK-007", "name": "EnergyBar Chocolate 12x6ct", "brand": "EnergyBar", "category": "Snacks", "subcategory": "Bars", "pack": "12x6ct", "price": 43.20, "cogs": 22.80, "elasticity": -1.9},
-    {"id": "SNK-008", "name": "EnergyBar Peanut Butter 12x6ct", "brand": "EnergyBar", "category": "Snacks", "subcategory": "Bars", "pack": "12x6ct", "price": 43.20, "cogs": 23.10, "elasticity": -1.9},
-    {"id": "SNK-009", "name": "SweetBite Cookies 12x13oz", "brand": "SweetBite", "category": "Snacks", "subcategory": "Cookies", "pack": "12x13oz", "price": 32.40, "cogs": 14.80, "elasticity": -2.1},
-    {"id": "SNK-010", "name": "SweetBite Sandwich Cookies 12x15.35oz", "brand": "SweetBite", "category": "Snacks", "subcategory": "Cookies", "pack": "12x15.35oz", "price": 29.76, "cogs": 13.10, "elasticity": -2.3},
-    # Personal Care – 8 SKUs
+    # Personal Care – 2 SKUs
     {"id": "PC-001", "name": "LuxeShine Shampoo 6x33.8oz", "brand": "LuxeShine", "category": "Personal Care", "subcategory": "Hair Care", "pack": "6x33.8oz", "price": 48.00, "cogs": 19.20, "elasticity": -1.6},
-    {"id": "PC-002", "name": "LuxeShine Conditioner 6x33.8oz", "brand": "LuxeShine", "category": "Personal Care", "subcategory": "Hair Care", "pack": "6x33.8oz", "price": 50.40, "cogs": 20.80, "elasticity": -1.5},
     {"id": "PC-003", "name": "FreshGuard Deodorant 12x2.7oz", "brand": "FreshGuard", "category": "Personal Care", "subcategory": "Deodorant", "pack": "12x2.7oz", "price": 36.00, "cogs": 13.20, "elasticity": -1.8},
-    {"id": "PC-004", "name": "FreshGuard Sport 12x2.7oz", "brand": "FreshGuard", "category": "Personal Care", "subcategory": "Deodorant", "pack": "12x2.7oz", "price": 39.60, "cogs": 15.40, "elasticity": -1.6},
-    {"id": "PC-005", "name": "SilkSkin Body Wash 6x33.8oz", "brand": "SilkSkin", "category": "Personal Care", "subcategory": "Body Wash", "pack": "6x33.8oz", "price": 42.00, "cogs": 17.40, "elasticity": -1.9},
-    {"id": "PC-006", "name": "SilkSkin Moisturizing 6x33.8oz", "brand": "SilkSkin", "category": "Personal Care", "subcategory": "Body Wash", "pack": "6x33.8oz", "price": 45.60, "cogs": 19.20, "elasticity": -1.7},
-    {"id": "PC-007", "name": "SparkleSmile Toothpaste 12x6oz", "brand": "SparkleSmile", "category": "Personal Care", "subcategory": "Oral Care", "pack": "12x6oz", "price": 32.40, "cogs": 11.80, "elasticity": -1.4},
-    {"id": "PC-008", "name": "SparkleSmile Whitening 12x6oz", "brand": "SparkleSmile", "category": "Personal Care", "subcategory": "Oral Care", "pack": "12x6oz", "price": 38.40, "cogs": 15.20, "elasticity": -1.5},
-    # Household – 10 SKUs
+    # Household – 2 SKUs
     {"id": "HH-001", "name": "TidePro Laundry Pods 4x81ct", "brand": "TidePro", "category": "Household", "subcategory": "Laundry", "pack": "4x81ct", "price": 76.80, "cogs": 38.40, "elasticity": -2.0},
-    {"id": "HH-002", "name": "TidePro Liquid 6x100oz", "brand": "TidePro", "category": "Household", "subcategory": "Laundry", "pack": "6x100oz", "price": 84.00, "cogs": 42.00, "elasticity": -2.2},
     {"id": "HH-003", "name": "BrightClean All-Purpose 6x32oz", "brand": "BrightClean", "category": "Household", "subcategory": "Cleaning", "pack": "6x32oz", "price": 24.00, "cogs": 9.60, "elasticity": -2.4},
-    {"id": "HH-004", "name": "BrightClean Bleach 6x121oz", "brand": "BrightClean", "category": "Household", "subcategory": "Cleaning", "pack": "6x121oz", "price": 18.00, "cogs": 6.80, "elasticity": -2.6},
-    {"id": "HH-005", "name": "SoftTouch Paper Towels 6x2-XL", "brand": "SoftTouch", "category": "Household", "subcategory": "Paper", "pack": "6x2-XL", "price": 19.20, "cogs": 8.40, "elasticity": -2.8},
-    {"id": "HH-006", "name": "SoftTouch Bath Tissue 4x12-DR", "brand": "SoftTouch", "category": "Household", "subcategory": "Paper", "pack": "4x12-DR", "price": 22.80, "cogs": 10.60, "elasticity": -2.9},
-    {"id": "HH-007", "name": "AirFresh Plug-In 6x2.5oz", "brand": "AirFresh", "category": "Household", "subcategory": "Air Care", "pack": "6x2.5oz", "price": 28.80, "cogs": 11.20, "elasticity": -2.1},
-    {"id": "HH-008", "name": "AirFresh Spray 6x8oz", "brand": "AirFresh", "category": "Household", "subcategory": "Air Care", "pack": "6x8oz", "price": 22.80, "cogs": 8.80, "elasticity": -2.3},
-    {"id": "HH-009", "name": "DishMate Pods 6x64ct", "brand": "DishMate", "category": "Household", "subcategory": "Dishwashing", "pack": "6x64ct", "price": 52.80, "cogs": 24.40, "elasticity": -2.0},
-    {"id": "HH-010", "name": "DishMate Gel 6x90oz", "brand": "DishMate", "category": "Household", "subcategory": "Dishwashing", "pack": "6x90oz", "price": 36.00, "cogs": 15.60, "elasticity": -2.2},
-    # Dairy – 10 SKUs
+    # Dairy – 2 SKUs
     {"id": "DAI-001", "name": "CreekFarm Greek Yogurt 12x32oz", "brand": "CreekFarm", "category": "Dairy", "subcategory": "Yogurt", "pack": "12x32oz", "price": 55.20, "cogs": 34.80, "elasticity": -1.8},
-    {"id": "DAI-002", "name": "CreekFarm Yogurt Cups 12x6-6oz", "brand": "CreekFarm", "category": "Dairy", "subcategory": "Yogurt", "pack": "12x6-6oz", "price": 36.00, "cogs": 22.80, "elasticity": -2.0},
     {"id": "DAI-003", "name": "AlpineGold Cheddar 12x32oz", "brand": "AlpineGold", "category": "Dairy", "subcategory": "Cheese", "pack": "12x32oz", "price": 84.00, "cogs": 58.80, "elasticity": -1.6},
-    {"id": "DAI-004", "name": "AlpineGold Shredded Mozzarella 12x16oz", "brand": "AlpineGold", "category": "Dairy", "subcategory": "Cheese", "pack": "12x16oz", "price": 62.40, "cogs": 43.20, "elasticity": -1.7},
-    {"id": "DAI-005", "name": "MeadowFresh Butter 12x1lb", "brand": "MeadowFresh", "category": "Dairy", "subcategory": "Butter", "pack": "12x1lb", "price": 67.20, "cogs": 50.40, "elasticity": -1.5},
-    {"id": "DAI-006", "name": "MeadowFresh Cream Cheese 12x8oz", "brand": "MeadowFresh", "category": "Dairy", "subcategory": "Cream Cheese", "pack": "12x8oz", "price": 38.40, "cogs": 25.20, "elasticity": -1.8},
-    {"id": "DAI-007", "name": "SipWell 2% Milk 6x0.5gal", "brand": "SipWell", "category": "Dairy", "subcategory": "Milk", "pack": "6x0.5gal", "price": 22.80, "cogs": 16.40, "elasticity": -2.1},
-    {"id": "DAI-008", "name": "SipWell Whole Milk 6x0.5gal", "brand": "SipWell", "category": "Dairy", "subcategory": "Milk", "pack": "6x0.5gal", "price": 24.00, "cogs": 17.60, "elasticity": -2.0},
-    {"id": "DAI-009", "name": "WhipDream Heavy Cream 12x32oz", "brand": "WhipDream", "category": "Dairy", "subcategory": "Cream", "pack": "12x32oz", "price": 72.00, "cogs": 52.80, "elasticity": -1.6},
-    {"id": "DAI-010", "name": "WhipDream Sour Cream 12x24oz", "brand": "WhipDream", "category": "Dairy", "subcategory": "Cream", "pack": "12x24oz", "price": 44.40, "cogs": 30.00, "elasticity": -1.7},
 ]
 
 CUSTOMERS = [
@@ -81,12 +41,6 @@ CUSTOMERS = [
     {"id": "KRG", "name": "Kroger", "channel": "Grocery", "region": "National", "tier": "Tier 1", "vol_share": 0.18},
     {"id": "TGT", "name": "Target", "channel": "Mass", "region": "National", "tier": "Tier 1", "vol_share": 0.12},
     {"id": "CST", "name": "Costco", "channel": "Club", "region": "National", "tier": "Tier 1", "vol_share": 0.10},
-    {"id": "ALB", "name": "Albertsons / Safeway", "channel": "Grocery", "region": "West / Mountain", "tier": "Tier 2", "vol_share": 0.08},
-    {"id": "AHD", "name": "Ahold / Stop & Shop", "channel": "Grocery", "region": "Northeast", "tier": "Tier 2", "vol_share": 0.07},
-    {"id": "CVS", "name": "CVS Pharmacy", "channel": "Drug", "region": "National", "tier": "Tier 2", "vol_share": 0.06},
-    {"id": "WRG", "name": "Walgreens", "channel": "Drug", "region": "National", "tier": "Tier 2", "vol_share": 0.05},
-    {"id": "DLG", "name": "Dollar General", "channel": "Value", "region": "Southeast / Midwest", "tier": "Tier 3", "vol_share": 0.04},
-    {"id": "PBX", "name": "Publix", "channel": "Grocery", "region": "Southeast", "tier": "Tier 2", "vol_share": 0.02},
 ]
 
 # Seasonality indices by category and month (1 = baseline)
@@ -377,24 +331,19 @@ def seed_market_data(db: Session) -> None:
     # Brand share setup: our brands + 2 competitors per category
     brand_landscape = {
         "Beverages": {
-            "BrewMaster": 0.22, "VoltEdge": 0.15, "PureFlow": 0.18, "SunHarvest": 0.12,
-            "CrispTea": 0.10, "FitFuel": 0.08, "Competitor A": 0.10, "Competitor B": 0.05,
+            "BrewMaster": 0.30, "VoltEdge": 0.25, "Competitor A": 0.28, "Competitor B": 0.17,
         },
         "Snacks": {
-            "CrunchCraft": 0.25, "GoldenBake": 0.18, "NutHouse": 0.14, "EnergyBar": 0.12,
-            "SweetBite": 0.15, "Competitor A": 0.12, "Competitor B": 0.04,
+            "CrunchCraft": 0.32, "NutHouse": 0.22, "Competitor A": 0.28, "Competitor B": 0.18,
         },
         "Personal Care": {
-            "LuxeShine": 0.22, "FreshGuard": 0.18, "SilkSkin": 0.16, "SparkleSmile": 0.14,
-            "Competitor A": 0.20, "Competitor B": 0.10,
+            "LuxeShine": 0.30, "FreshGuard": 0.24, "Competitor A": 0.28, "Competitor B": 0.18,
         },
         "Household": {
-            "TidePro": 0.28, "BrightClean": 0.18, "SoftTouch": 0.20, "AirFresh": 0.12,
-            "DishMate": 0.14, "Competitor A": 0.08,
+            "TidePro": 0.34, "BrightClean": 0.22, "Competitor A": 0.26, "Competitor B": 0.18,
         },
         "Dairy": {
-            "CreekFarm": 0.20, "AlpineGold": 0.18, "MeadowFresh": 0.15, "SipWell": 0.12,
-            "WhipDream": 0.10, "Competitor A": 0.15, "Competitor B": 0.10,
+            "CreekFarm": 0.28, "AlpineGold": 0.26, "Competitor A": 0.26, "Competitor B": 0.20,
         },
     }
 
@@ -494,7 +443,7 @@ def run_all_seeds(db: Session) -> None:
     seed_products(db)
     print("  → Seeding customers...")
     seed_customers(db)
-    print("  → Seeding sales data (~52k rows)...")
+    print("  → Seeding sales data (~4k rows)...")
     seed_sales(db)
     print("  → Seeding inventory data...")
     seed_inventory(db)

@@ -10,7 +10,7 @@ engine = create_engine(
     pool_size=10,
     max_overflow=20,
     pool_pre_ping=True,
-    echo=settings.environment == "development",
+    echo=False,  # query logging is a major overhead; keep off
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)

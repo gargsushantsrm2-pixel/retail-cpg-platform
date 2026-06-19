@@ -3,6 +3,7 @@ Core analytics engine for the Retail & CPG Decision Intelligence Platform.
 Provides RGM, forecasting, supply chain, and commercial analytics computations.
 """
 
+import functools
 from typing import Optional, List, Dict, Any
 import numpy as np
 import pandas as pd
@@ -10,6 +11,32 @@ from sklearn.linear_model import LinearRegression
 from statsmodels.tsa.holtwinters import ExponentialSmoothing
 from sqlalchemy.orm import Session
 from sqlalchemy import text
+
+from .data_generator import PRODUCTS
+
+# Brands we own — derived once from master data
+OUR_BRANDS = {p["brand"] for p in PRODUCTS}
+
+
+# ── In-memory result cache ───────────────────────────────────────────────────
+# Seeded data is immutable after startup, so analytics results never change.
+# Cache them by (function, args) so each endpoint computes once then serves
+# instantly on every subsequent request.
+_RESULT_CACHE: Dict[str, Any] = {}
+
+
+def _cached(func):
+    @functools.wraps(func)
+    def wrapper(db: Session, *args, **kwargs):
+        key = f"{func.__name__}:{args}:{tuple(sorted(kwargs.items()))}"
+        if key not in _RESULT_CACHE:
+            _RESULT_CACHE[key] = func(db, *args, **kwargs)
+        return _RESULT_CACHE[key]
+    return wrapper
+
+
+def clear_cache() -> None:
+    _RESULT_CACHE.clear()
 
 
 # ── Data access helpers ──────────────────────────────────────────────────────
@@ -73,6 +100,7 @@ def _load_forecasts(db: Session) -> pd.DataFrame:
 
 # ── Executive KPIs ────────────────────────────────────────────────────────────
 
+@_cached
 def get_executive_summary(db: Session) -> Dict[str, Any]:
     df = _load_sales(db)
 
@@ -96,10 +124,8 @@ def get_executive_summary(db: Session) -> Dict[str, Any]:
     cy_mkt = mkt[mkt["week_date"].astype(str).str[:4] == "2024"]
     py_mkt = mkt[mkt["week_date"].astype(str).str[:4] == "2023"]
     # Only our brands
-    our_brands = [p["brand"] for p in __import__("backend.services.data_generator", fromlist=["PRODUCTS"]).PRODUCTS]
-    our_brands_set = set(our_brands)
-    cy_our = cy_mkt[cy_mkt["brand"].isin(our_brands_set)]
-    py_our = py_mkt[py_mkt["brand"].isin(our_brands_set)]
+    cy_our = cy_mkt[cy_mkt["brand"].isin(OUR_BRANDS)]
+    py_our = py_mkt[py_mkt["brand"].isin(OUR_BRANDS)]
     cy_share = cy_our["volume_share_pct"].mean() if len(cy_our) else 0
     py_share = py_our["volume_share_pct"].mean() if len(py_our) else 0
 
@@ -116,6 +142,7 @@ def get_executive_summary(db: Session) -> Dict[str, Any]:
     }
 
 
+@_cached
 def get_revenue_trend(db: Session) -> List[Dict]:
     df = _load_sales(db)
     df["week_date"] = pd.to_datetime(df["week_date"])
@@ -142,6 +169,7 @@ def get_revenue_trend(db: Session) -> List[Dict]:
     return merged.fillna(0).to_dict(orient="records")
 
 
+@_cached
 def get_category_performance(db: Session) -> List[Dict]:
     df = _load_sales(db)
     cy = df[df["year"] == 2024]
@@ -164,6 +192,7 @@ def get_category_performance(db: Session) -> List[Dict]:
     return merged.fillna(0).to_dict(orient="records")
 
 
+@_cached
 def get_top_performers(db: Session, n: int = 10) -> Dict[str, List]:
     df = _load_sales(db, years=[2024])
 
@@ -196,6 +225,7 @@ def get_top_performers(db: Session, n: int = 10) -> Dict[str, List]:
 
 # ── Revenue Growth Management ─────────────────────────────────────────────────
 
+@_cached
 def get_price_elasticity(db: Session, category: Optional[str] = None) -> List[Dict]:
     df = _load_sales(db)
     if category:
@@ -239,6 +269,7 @@ def get_price_elasticity(db: Session, category: Optional[str] = None) -> List[Di
     return sorted(results, key=lambda x: x["annual_revenue"], reverse=True)
 
 
+@_cached
 def get_revenue_waterfall(db: Session) -> Dict[str, Any]:
     """Revenue bridge: Price/Mix/Volume decomposition CY vs PY."""
     df = _load_sales(db)
@@ -285,6 +316,7 @@ def get_revenue_waterfall(db: Session) -> Dict[str, Any]:
     }
 
 
+@_cached
 def get_promo_roi(db: Session) -> List[Dict]:
     df = _load_sales(db, years=[2024])
     promo = df[df["promo_flag"] == True].copy()
@@ -313,6 +345,7 @@ def get_promo_roi(db: Session) -> List[Dict]:
     return sorted(results, key=lambda x: x["roi_pct"], reverse=True)
 
 
+@_cached
 def get_mix_analysis(db: Session) -> List[Dict]:
     df = _load_sales(db)
     cy = df[df["year"] == 2024]
@@ -336,6 +369,7 @@ def get_mix_analysis(db: Session) -> List[Dict]:
 
 # ── Category Intelligence ─────────────────────────────────────────────────────
 
+@_cached
 def get_assortment_analysis(db: Session) -> List[Dict]:
     df = _load_sales(db, years=[2024])
     sku = df.groupby(["product_id", "sku_name", "brand", "category", "subcategory"]).agg(
@@ -357,6 +391,7 @@ def get_assortment_analysis(db: Session) -> List[Dict]:
     return sku_sorted.fillna(0).to_dict(orient="records")
 
 
+@_cached
 def get_subcategory_trends(db: Session) -> List[Dict]:
     df = _load_sales(db)
     df["week_date"] = pd.to_datetime(df["week_date"])
@@ -372,6 +407,7 @@ def get_subcategory_trends(db: Session) -> List[Dict]:
 
 # ── Demand Forecasting ────────────────────────────────────────────────────────
 
+@_cached
 def get_forecast_accuracy(db: Session) -> List[Dict]:
     """Calculate MAPE, WMAPE, and bias by brand/category using held-out actuals."""
     df = _load_sales(db, years=[2024])
@@ -411,6 +447,7 @@ def get_forecast_accuracy(db: Session) -> List[Dict]:
     return sorted(results, key=lambda x: x["forecast_accuracy"], reverse=True)
 
 
+@_cached
 def get_sales_vs_forecast(db: Session, product_id: Optional[str] = None, customer_id: Optional[str] = None) -> Dict:
     df = _load_sales(db)
     fcast_df = _load_forecasts(db)
@@ -455,6 +492,7 @@ def get_sales_vs_forecast(db: Session, product_id: Optional[str] = None, custome
     }
 
 
+@_cached
 def get_demand_decomposition(db: Session, category: str = "Beverages") -> Dict:
     df = _load_sales(db)
     df = df[df["category"] == category]
@@ -478,6 +516,7 @@ def get_demand_decomposition(db: Session, category: str = "Beverages") -> Dict:
 
 # ── Supply Chain ──────────────────────────────────────────────────────────────
 
+@_cached
 def get_inventory_health(db: Session) -> List[Dict]:
     df = _load_inventory(db)
     df["week_date"] = pd.to_datetime(df["week_date"])
@@ -500,6 +539,7 @@ def get_inventory_health(db: Session) -> List[Dict]:
     return summary.sort_values("avg_woc").to_dict(orient="records")
 
 
+@_cached
 def get_service_levels(db: Session) -> Dict:
     df = _load_inventory(db)
     df["week_date"] = pd.to_datetime(df["week_date"])
@@ -532,6 +572,7 @@ def random_otif_factor(n: int) -> np.ndarray:
     return np.random.uniform(0.92, 0.98, n)
 
 
+@_cached
 def get_replenishment_alerts(db: Session) -> List[Dict]:
     df = _load_inventory(db)
     df["week_date"] = pd.to_datetime(df["week_date"])
@@ -546,6 +587,7 @@ def get_replenishment_alerts(db: Session) -> List[Dict]:
 
 # ── Commercial Excellence ─────────────────────────────────────────────────────
 
+@_cached
 def get_customer_pl(db: Session) -> List[Dict]:
     df = _load_sales(db, years=[2024])
 
@@ -571,6 +613,7 @@ def get_customer_pl(db: Session) -> List[Dict]:
     return cust_pl.sort_values("net_revenue", ascending=False).fillna(0).to_dict(orient="records")
 
 
+@_cached
 def get_trade_effectiveness(db: Session) -> Dict:
     df = _load_sales(db, years=[2024])
     promo = df[df["promo_flag"] == True].copy()
@@ -707,6 +750,7 @@ def simulate_promo_scenario(
     }
 
 
+@_cached
 def get_market_share_trends(db: Session) -> Dict:
     mkt = _load_market(db)
     mkt["week_date"] = pd.to_datetime(mkt["week_date"])
