@@ -32,6 +32,10 @@ services:
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
     ports:
       - "8000:8000"
+    # Mount source over the baked-in package so code changes take effect on a
+    # plain `restart` — no Docker rebuild needed (rebuilds OOM the 1GB VM).
+    volumes:
+      - ./backend:/app/backend:ro
     depends_on:
       postgres:
         condition: service_healthy
