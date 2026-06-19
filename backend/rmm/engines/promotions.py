@@ -150,7 +150,8 @@ class PostEventROIEngine(OptimizationEngine):
             incr_rev = money(D((grp["incremental_volume"] * grp["net_price"]).sum()))
             trade_spend = money(D((grp["volume_cases"] * grp["list_price"] * grp["promo_discount_pct"]).sum()))
             unit_cogs = safe_div(grp["cogs"].sum(), grp["volume_cases"].sum())
-            incr_gp = money(D((grp["incremental_volume"] * (grp["net_price"] - unit_cogs)).sum()))
+            unit_cogs_f = float(unit_cogs)  # pandas Series math stays in float
+            incr_gp = money(D((grp["incremental_volume"] * (grp["net_price"] - unit_cogs_f)).sum()))
             roi = safe_div(incr_rev - trade_spend, trade_spend)
             baseline_vol = D(grp["baseline_volume"].sum())
             lift = safe_div(incr_vol, baseline_vol)
