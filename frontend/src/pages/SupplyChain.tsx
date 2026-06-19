@@ -18,26 +18,30 @@ const TABS = [
 ]
 
 export default function SupplyChain() {
-  const { data: inv,    isLoading: invLoad    } = useInventoryHealth()
-  const { data: svc,    isLoading: svcLoad    } = useServiceLevels()
-  const { data: alerts, isLoading: alertsLoad } = useReplenishment()
+  const { data: _inv,    isLoading: invLoad    } = useInventoryHealth()
+  const { data: _svc,    isLoading: svcLoad    } = useServiceLevels()
+  const { data: _alerts, isLoading: alertsLoad } = useReplenishment()
 
-  const critical = (alerts ?? []).filter(a => a.urgency === 'CRITICAL')
-  const high     = (alerts ?? []).filter(a => a.urgency === 'HIGH')
-  const medium   = (alerts ?? []).filter(a => a.urgency === 'MEDIUM')
+  const inv    = _inv    as any
+  const svc    = _svc    as any
+  const alerts = _alerts as any
 
-  const invSorted = [...(inv ?? [])].sort((a, b) => a.avg_woc - b.avg_woc)
+  const critical = (alerts ?? []).filter((a: any) => a.urgency === 'CRITICAL')
+  const high     = (alerts ?? []).filter((a: any) => a.urgency === 'HIGH')
+  const medium   = (alerts ?? []).filter((a: any) => a.urgency === 'MEDIUM')
+
+  const invSorted = [...(inv ?? [])].sort((a: any, b: any) => a.avg_woc - b.avg_woc)
   const wocTop25  = invSorted.slice(0, 25)
 
   const riskCounts = ['Critical', 'Low', 'Healthy'].map(r => ({
-    name: r, value: (inv ?? []).filter(d => d.risk_flag === r).length,
+    name: r, value: (inv ?? []).filter((d: any) => d.risk_flag === r).length,
     fill: r === 'Critical' ? '#EF4444' : r === 'Low' ? '#F59E0B' : '#10B981',
   }))
 
-  const monthly = (svc?.monthly_trend ?? []).map(d => ({
+  const monthly = (svc?.monthly_trend ?? []).map((d: any) => ({
     ...d,
     month: d.month?.slice(0, 7) ?? '',
-  })).sort((a, b) => a.month.localeCompare(b.month))
+  })).sort((a: any, b: any) => a.month.localeCompare(b.month))
 
   return (
     <div className="animate-slide-in">
