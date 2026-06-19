@@ -76,6 +76,80 @@ class TradeFundLedger(Base):
     __table_args__ = (Index("ix_tradefund_region_year", "region", "fiscal_year"),)
 
 
+class PromoTemplate(Base):
+    """Quick-copy promotion template (Module 2 / Feature 5)."""
+    __tablename__ = "promo_template"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(120), nullable=False)
+    promo_type = Column(String(50), nullable=False)          # TPR, Display, Feature, BOGO, ...
+    discount_pct = Column(Numeric(5, 4), default=0)          # fraction
+    duration_weeks = Column(Integer, default=1)
+    display = Column(Boolean, default=False)
+    feature = Column(Boolean, default=False)
+    created_at = Column(DateTime, server_default=func.now())
+
+
+class PromoEvent(Base):
+    """A scheduled promotion on the multi-week calendar (Module 2 / Feature 5).
+    Carries the pre-event prediction and the committed trade liability."""
+    __tablename__ = "promo_event"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    product_id = Column(String(20), ForeignKey("products.product_id"), nullable=False)
+    customer_id = Column(String(20), ForeignKey("customers.customer_id"))
+    template_id = Column(Integer, ForeignKey("promo_template.id"))
+    start_week = Column(Date, nullable=False)
+    end_week = Column(Date, nullable=False)
+    promo_type = Column(String(50), nullable=False)
+    discount_pct = Column(Numeric(5, 4), default=0)
+    display = Column(Boolean, default=False)
+    feature = Column(Boolean, default=False)
+    predicted_lift_pct = Column(Numeric(8, 2))
+    predicted_incremental_revenue = Column(Numeric(16, 2))
+    trade_liability = Column(Numeric(16, 2), default=0)      # committed trade spend
+    status = Column(String(20), default="DRAFT")             # DRAFT/APPROVED/EXECUTED
+    created_at = Column(DateTime, server_default=func.now())
+
+    __table_args__ = (
+        Index("ix_promoevent_product", "product_id"),
+        Index("ix_promoevent_start", "start_week"),
+    )
+
+
+class DealApproval(Base):
+    """G2N workflow approval record (Module 4 / Feature 9)."""
+    __tablename__ = "deal_approval"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    product_id = Column(String(20), ForeignKey("products.product_id"))
+    customer_id = Column(String(20), ForeignKey("customers.customer_id"))
+    proposed_discount_pct = Column(Numeric(5, 4), nullable=False)
+    resulting_gm_pct = Column(Numeric(6, 3))
+    gm_threshold_pct = Column(Numeric(6, 3))
+    status = Column(String(20))                              # AUTO_APPROVED/ESCALATED
+    routed_to = Column(String(60))
+    created_at = Column(DateTime, server_default=func.now())
+
+    __table_args__ = (Index("ix_dealapproval_status", "status"),)
+
+
+class TradeClaim(Base):
+    """Retailer deduction / claim reconciliation (Module 4 / Feature 11)."""
+    __tablename__ = "trade_claim"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    customer_id = Column(String(20), ForeignKey("customers.customer_id"), nullable=False)
+    claim_amount = Column(Numeric(16, 2), nullable=False)
+    contracted_amount = Column(Numeric(16, 2), nullable=False)
+    variance = Column(Numeric(16, 2))                        # claim - contracted (unauthorized leakage)
+    reason = Column(String(200))
+    status = Column(String(20), default="PENDING")          # PENDING/APPROVED/DISPUTED
+    created_at = Column(DateTime, server_default=func.now())
+
+    __table_args__ = (Index("ix_tradeclaim_customer", "customer_id"),)
+
+
 class ThreeCScoreRecord(Base):
     """Persisted 3-C joint optimization scores for audit (Module 19 / Feature 38)."""
     __tablename__ = "three_c_score"

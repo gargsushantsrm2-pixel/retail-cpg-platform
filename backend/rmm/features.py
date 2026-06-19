@@ -67,15 +67,15 @@ FEATURES: List[Feature] = [
     _f(3, 1, "Pricing Optimization & Elasticity Engine", "Dynamic Competitor Indexing & Alerts", FeatureTier.INDEXING),
     # M2 TPM/TPO
     _f(4, 2, "Trade Promotion Management & Optimization", "Predictive Promotion Scenario Simulator", FeatureTier.PREDICTIVE, ImplStatus.LIVE),
-    _f(5, 2, "Trade Promotion Management & Optimization", "Multi-Level Promotion Calendar & Workspace", FeatureTier.INDEXING),
+    _f(5, 2, "Trade Promotion Management & Optimization", "Multi-Level Promotion Calendar & Workspace", FeatureTier.INDEXING, ImplStatus.LIVE),
     _f(6, 2, "Trade Promotion Management & Optimization", "Post-Event ROI Balanced Scorecard", FeatureTier.DIAGNOSTIC, ImplStatus.LIVE),
     # M3 PPA Designer
     _f(7, 3, "Price Pack Architecture Designer", "Margin Contribution & Per-Ounce Matrix", FeatureTier.INDEXING),
     _f(8, 3, "Price Pack Architecture Designer", "Premiumization & Channel Pack Alignment", FeatureTier.PRESCRIPTIVE),
     # M4 Trade Terms & G2N
-    _f(9, 4, "Trade Terms & Gross-to-Net Controls", "Automated Workflow Approval Engines", FeatureTier.PRESCRIPTIVE),
-    _f(10, 4, "Trade Terms & Gross-to-Net Controls", "Trade Fund Budgetary Allocation & Guardrails", FeatureTier.INDEXING),
-    _f(11, 4, "Trade Terms & Gross-to-Net Controls", "Compliance Auditing & Claims Reconciliation", FeatureTier.DIAGNOSTIC),
+    _f(9, 4, "Trade Terms & Gross-to-Net Controls", "Automated Workflow Approval Engines", FeatureTier.PRESCRIPTIVE, ImplStatus.LIVE),
+    _f(10, 4, "Trade Terms & Gross-to-Net Controls", "Trade Fund Budgetary Allocation & Guardrails", FeatureTier.INDEXING, ImplStatus.LIVE),
+    _f(11, 4, "Trade Terms & Gross-to-Net Controls", "Compliance Auditing & Claims Reconciliation", FeatureTier.DIAGNOSTIC, ImplStatus.LIVE),
     # M5 Assortment, Distribution & Demand Forecasting
     _f(12, 5, "Assortment, Distribution & Demand Forecasting", "Store-Level Assortment Recommendation Engine", FeatureTier.PRESCRIPTIVE),
     _f(13, 5, "Assortment, Distribution & Demand Forecasting", "ML Demand Forecasting with Disruption Indicators", FeatureTier.PREDICTIVE),
