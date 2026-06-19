@@ -121,8 +121,8 @@ class PromoSimulatorEngine(OptimizationEngine):
                     "gross_margin_pct": to_pct_display(retailer_margin, 1),
                 },
             },
-            telemetry={"elasticity_used": float(elasticity), "base_lift": float(base_lift),
-                       "depth_lift": float(depth_lift)},
+            telemetry={"elasticity_used": float(elasticity), "mechanic_lift": float(base_lift),
+                       "price_effect": float(price_effect)},
         )
 
 
