@@ -6,7 +6,9 @@ from fastapi.responses import JSONResponse
 
 from .core.config import get_settings
 from .core.database import engine, Base
-from .api.v1 import executive, rgm, category, forecasting, supply_chain, commercial, data
+from .models import entities as _entities  # noqa: F401  (register ORM tables)
+from .models import rmm_entities as _rmm_entities  # noqa: F401  (register RMM tables)
+from .api.v1 import executive, rgm, category, forecasting, supply_chain, commercial, data, rmm
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -46,6 +48,7 @@ app.include_router(forecasting.router, prefix=PREFIX)
 app.include_router(supply_chain.router, prefix=PREFIX)
 app.include_router(commercial.router, prefix=PREFIX)
 app.include_router(data.router, prefix=PREFIX)
+app.include_router(rmm.router, prefix=PREFIX)
 
 
 @app.get("/health")
