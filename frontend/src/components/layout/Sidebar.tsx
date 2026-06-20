@@ -3,6 +3,7 @@ import {
   LayoutDashboard, TrendingUp, ShoppingCart, LineChart,
   Truck, Handshake, Target, Activity,
   Scale, Gauge, Zap, Tag, FileSignature, ShieldCheck,
+  Users, Boxes, PackageSearch, Wallet, Network,
 } from 'lucide-react'
 import { cn } from '../../lib/utils'
 import { useQuery } from '@tanstack/react-query'
@@ -25,6 +26,11 @@ const RMM_NAV = [
   { path: '/rmm/promo',        icon: Tag,           label: 'Promo Optimizer',     color: '#F59E0B' },
   { path: '/rmm/trade-terms',  icon: FileSignature, label: 'Trade Terms (G2N)',   color: '#F97316' },
   { path: '/rmm/governance',   icon: ShieldCheck,   label: 'Margin Governance',   color: '#10B981' },
+  { path: '/rmm/consumer',     icon: Users,         label: 'Consumer Science',    color: '#EC4899' },
+  { path: '/rmm/price-arch',   icon: Boxes,         label: 'Price Architecture',  color: '#3B82F6' },
+  { path: '/rmm/demand',       icon: PackageSearch, label: 'Demand & Assortment', color: '#F59E0B' },
+  { path: '/rmm/investment',   icon: Wallet,        label: 'Investment & Deals',  color: '#84CC16' },
+  { path: '/rmm/platform',     icon: Network,       label: 'Platform & Ops',      color: '#06B6D4' },
 ]
 
 // Exact match for prefix routes ('/' and '/rmm') so they don't stay active on

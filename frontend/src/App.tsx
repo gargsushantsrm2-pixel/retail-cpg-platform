@@ -13,6 +13,11 @@ import ElasticityLab        from './pages/rmm/ElasticityLab'
 import PromoOptimizer       from './pages/rmm/PromoOptimizer'
 import TradeTerms           from './pages/rmm/TradeTerms'
 import MarginGovernance     from './pages/rmm/MarginGovernance'
+import ConsumerScience      from './pages/rmm/ConsumerScience'
+import PriceArchitecture    from './pages/rmm/PriceArchitecture'
+import DemandPlanning       from './pages/rmm/DemandPlanning'
+import InvestmentDeals      from './pages/rmm/InvestmentDeals'
+import PlatformGovernance   from './pages/rmm/PlatformGovernance'
 
 export default function App() {
   return (
@@ -32,6 +37,11 @@ export default function App() {
           <Route path="rmm/promo"    element={<PromoOptimizer />} />
           <Route path="rmm/trade-terms" element={<TradeTerms />} />
           <Route path="rmm/governance" element={<MarginGovernance />} />
+          <Route path="rmm/consumer"   element={<ConsumerScience />} />
+          <Route path="rmm/price-arch" element={<PriceArchitecture />} />
+          <Route path="rmm/demand"     element={<DemandPlanning />} />
+          <Route path="rmm/investment" element={<InvestmentDeals />} />
+          <Route path="rmm/platform"   element={<PlatformGovernance />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -52,3 +52,32 @@ export const fetchTradeFund = (fiscal_year = 2024) =>
 export const allocateFund = (body: any) => api.post('/rmm/g2n/trade-fund/allocate', body).then(r => r.data)
 export const commitFund = (body: any) => api.post('/rmm/g2n/trade-fund/commit', body).then(r => r.data)
 export const reconcileClaim = (body: any) => api.post('/rmm/g2n/claims/reconcile', body).then(r => r.data)
+
+// ── Extended engines (consumer / pricing-arch / demand / investment / platform) ─
+export const fetchWtpDist = (product_id: string) => api.get(`/rmm/consumer/wtp-distribution?product_id=${product_id}`).then(r => r.data)
+export const postSurveyCalibration = (survey_points: any[]) => api.post('/rmm/consumer/survey-calibration', { survey_points }).then(r => r.data)
+export const fetchAgentSim = (category: string, shock_product_id?: string, shock_pct = 10) =>
+  api.get(`/rmm/consumer/agent-sim?category=${category}${shock_product_id ? `&shock_product_id=${shock_product_id}&shock_pct=${shock_pct}` : ''}`).then(r => r.data)
+
+export const fetchPerOunce = (category?: string) => api.get(`/rmm/ppa/per-ounce${category ? `?category=${category}` : ''}`).then(r => r.data)
+export const fetchCompetitorIndex = () => api.get('/rmm/ppa/competitor-index').then(r => r.data)
+export const fetchPremiumization = () => api.get('/rmm/ppa/premiumization').then(r => r.data)
+export const fetchTiers = (category: string) => api.get(`/rmm/ppa/tiers?category=${category}`).then(r => r.data)
+export const fetchValueIndex = () => api.get('/rmm/ppa/value-index').then(r => r.data)
+
+export const fetchAssortment = (customer_id?: string) => api.get(`/rmm/demand/assortment${customer_id ? `?customer_id=${customer_id}` : ''}`).then(r => r.data)
+export const fetchForecastDisruption = (product_id?: string, inflation_pct = 4, supply = 0) =>
+  api.get(`/rmm/demand/forecast-disruption?inflation_pct=${inflation_pct}&supply_bottleneck_pct=${supply}${product_id ? `&product_id=${product_id}` : ''}`).then(r => r.data)
+export const fetchSegmented = (price_change_pct = 5) => api.get(`/rmm/demand/segmented?price_change_pct=${price_change_pct}`).then(r => r.data)
+export const fetchPromoTiming = (category: string) => api.get(`/rmm/demand/promo-timing?category=${category}`).then(r => r.data)
+
+export const fetchB2BPricer = (product_id: string, committed_volume = 10000) => api.get(`/rmm/invest/b2b-pricer?product_id=${product_id}&committed_volume=${committed_volume}`).then(r => r.data)
+export const fetchInvestOptimize = (total_budget = 1000000) => api.get(`/rmm/invest/optimize?total_budget=${total_budget}`).then(r => r.data)
+export const fetchDecisionGuides = (cost_spike_pct = 4) => api.get(`/rmm/invest/decision-guides?cost_spike_pct=${cost_spike_pct}`).then(r => r.data)
+
+export const fetchIngestion = () => api.get('/rmm/platform/ingestion').then(r => r.data)
+export const fetchOpenApiCatalog = () => api.get('/rmm/platform/openapi-catalog').then(r => r.data)
+export const fetchStakeholder = (role: string) => api.get(`/rmm/platform/stakeholder?role=${role}`).then(r => r.data)
+export const fetchOmniChannel = (category?: string) => api.get(`/rmm/platform/omni-channel${category ? `?category=${category}` : ''}`).then(r => r.data)
+export const fetchWorkflow = (product_id: string, proposed_price: number) =>
+  api.get(`/rmm/platform/workflow?product_id=${product_id}&proposed_price=${proposed_price}`).then(r => r.data)
