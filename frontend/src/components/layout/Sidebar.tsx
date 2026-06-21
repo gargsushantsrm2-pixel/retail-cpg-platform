@@ -3,7 +3,7 @@ import {
   LayoutDashboard, TrendingUp, ShoppingCart, LineChart,
   Truck, Handshake, Target, Activity, Home,
   Scale, Gauge, Zap, Tag, FileSignature, ShieldCheck,
-  Users, Boxes, PackageSearch, Wallet, Network,
+  Users, Boxes, PackageSearch, Wallet, Network, BookOpen,
 } from 'lucide-react'
 import { cn } from '../../lib/utils'
 import { useQuery } from '@tanstack/react-query'
@@ -54,7 +54,8 @@ const SECTIONS: { label: string; items: { path: string; icon: any; label: string
   {
     label: 'Reference',
     items: [
-      { path: '/rmm', icon: Gauge, label: 'RMM Capability Map', color: '#8B5CF6' },
+      { path: '/rmm',          icon: Gauge,    label: 'RMM Capability Map',     color: '#8B5CF6' },
+      { path: '/methodology',  icon: BookOpen, label: 'Methodology & Glossary', color: '#06B6D4' },
     ],
   },
 ]
