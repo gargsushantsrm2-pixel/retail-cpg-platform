@@ -29,6 +29,21 @@
   }
 }
 
+/* Mobile: let wide data tables scroll horizontally instead of overflowing,
+   and allow the tab list to scroll if it exceeds the viewport width. */
+@media (max-width: 640px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tab-list {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
 @layer components {
   .card {
     @apply bg-bg-card border border-border rounded-xl shadow-card;

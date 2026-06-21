@@ -40,7 +40,7 @@ export default function DeveloperBadge() {
       </button>
 
       {open && (
-        <div className="absolute right-0 mt-2 w-80 rounded-xl border border-border bg-bg-card shadow-card z-50 overflow-hidden animate-fade-in">
+        <div className="absolute right-0 mt-2 w-80 max-w-[calc(100vw-2rem)] rounded-xl border border-border bg-bg-card shadow-card z-50 overflow-hidden animate-fade-in">
           <div className="p-4 bg-gradient-to-br from-accent-blue/10 to-accent-purple/10 border-b border-border">
             <div className="flex items-center gap-3">
               <span className="w-11 h-11 rounded-full bg-accent-blue/20 border border-accent-blue/30 flex items-center justify-center text-sm font-bold text-accent-blue">SG</span>

@@ -93,7 +93,7 @@ function renderItem(
   )
 }
 
-export default function Sidebar() {
+export default function Sidebar({ open = false, onClose }: { open?: boolean; onClose?: () => void }) {
   const { pathname } = useLocation()
   const { data: healthy } = useQuery({
     queryKey: ['health'],
@@ -102,7 +102,14 @@ export default function Sidebar() {
   })
 
   return (
-    <aside className="w-60 shrink-0 bg-bg-sidebar border-r border-border flex flex-col h-screen sticky top-0 overflow-y-auto">
+    <aside
+      className={cn(
+        'w-60 shrink-0 bg-bg-sidebar border-r border-border flex flex-col h-screen overflow-y-auto z-50',
+        'fixed inset-y-0 left-0 transition-transform duration-200 lg:sticky lg:top-0 lg:translate-x-0',
+        open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
+      )}
+      onClick={() => onClose?.()}
+    >
       {/* Brand */}
       <div className="px-5 py-5 border-b border-border">
         <div className="flex items-center gap-2.5 mb-0.5">
