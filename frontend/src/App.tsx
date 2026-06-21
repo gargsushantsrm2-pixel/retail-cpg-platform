@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Layout from './components/layout/Layout'
+import CommandCenter        from './pages/CommandCenter'
 import ExecutiveDashboard   from './pages/ExecutiveDashboard'
 import RevenueGrowth        from './pages/RevenueGrowth'
 import CategoryIntelligence from './pages/CategoryIntelligence'
@@ -24,7 +25,8 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route index               element={<ExecutiveDashboard />} />
+          <Route index               element={<CommandCenter />} />
+          <Route path="executive"    element={<ExecutiveDashboard />} />
           <Route path="rgm"          element={<RevenueGrowth />} />
           <Route path="category"     element={<CategoryIntelligence />} />
           <Route path="forecasting"  element={<DemandForecasting />} />

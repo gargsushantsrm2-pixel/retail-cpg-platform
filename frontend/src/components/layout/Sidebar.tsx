@@ -1,7 +1,7 @@
 import { NavLink, useLocation } from 'react-router-dom'
 import {
   LayoutDashboard, TrendingUp, ShoppingCart, LineChart,
-  Truck, Handshake, Target, Activity,
+  Truck, Handshake, Target, Activity, Home,
   Scale, Gauge, Zap, Tag, FileSignature, ShieldCheck,
   Users, Boxes, PackageSearch, Wallet, Network,
 } from 'lucide-react'
@@ -9,28 +9,54 @@ import { cn } from '../../lib/utils'
 import { useQuery } from '@tanstack/react-query'
 import { checkHealth } from '../../api/client'
 
-const NAV = [
-  { path: '/',           icon: LayoutDashboard, label: 'Executive Dashboard',    color: '#3B82F6' },
-  { path: '/rgm',        icon: TrendingUp,      label: 'Revenue Growth',          color: '#8B5CF6' },
-  { path: '/category',   icon: ShoppingCart,    label: 'Category Intelligence',   color: '#10B981' },
-  { path: '/forecasting',icon: LineChart,        label: 'Demand Forecasting',      color: '#F59E0B' },
-  { path: '/supply',     icon: Truck,           label: 'Supply Chain',            color: '#06B6D4' },
-  { path: '/commercial', icon: Handshake,       label: 'Commercial Excellence',   color: '#F97316' },
-  { path: '/scenario',   icon: Target,          label: 'Scenario Planner',        color: '#EC4899' },
-]
+// Single closed-loop journey: Home → Diagnose → Decide (levers) → Optimize →
+// Execute & Monitor → Reference. Replaces the two parallel menus.
+const HOME = { path: '/', icon: Home, label: 'Command Center', color: '#6366F1' }
 
-const RMM_NAV = [
-  { path: '/rmm',              icon: Gauge,         label: 'RMM Overview',        color: '#8B5CF6' },
-  { path: '/rmm/three-c',      icon: Scale,         label: '3-C Scorecard',       color: '#6366F1' },
-  { path: '/rmm/elasticity',   icon: Zap,           label: 'Elasticity Lab',      color: '#06B6D4' },
-  { path: '/rmm/promo',        icon: Tag,           label: 'Promo Optimizer',     color: '#F59E0B' },
-  { path: '/rmm/trade-terms',  icon: FileSignature, label: 'Trade Terms (G2N)',   color: '#F97316' },
-  { path: '/rmm/governance',   icon: ShieldCheck,   label: 'Margin Governance',   color: '#10B981' },
-  { path: '/rmm/consumer',     icon: Users,         label: 'Consumer Science',    color: '#EC4899' },
-  { path: '/rmm/price-arch',   icon: Boxes,         label: 'Price Architecture',  color: '#3B82F6' },
-  { path: '/rmm/demand',       icon: PackageSearch, label: 'Demand & Assortment', color: '#F59E0B' },
-  { path: '/rmm/investment',   icon: Wallet,        label: 'Investment & Deals',  color: '#84CC16' },
-  { path: '/rmm/platform',     icon: Network,       label: 'Platform & Ops',      color: '#06B6D4' },
+const SECTIONS: { label: string; items: { path: string; icon: any; label: string; color: string }[] }[] = [
+  {
+    label: 'Diagnose',
+    items: [
+      { path: '/executive',      icon: LayoutDashboard, label: 'Executive Dashboard',  color: '#3B82F6' },
+      { path: '/rmm/elasticity', icon: Zap,             label: 'Elasticity Lab',       color: '#06B6D4' },
+      { path: '/rmm/consumer',   icon: Users,           label: 'Consumer Science',     color: '#EC4899' },
+      { path: '/rmm/demand',     icon: PackageSearch,   label: 'Demand & Assortment',  color: '#F59E0B' },
+      { path: '/category',       icon: ShoppingCart,    label: 'Category Intelligence',color: '#10B981' },
+      { path: '/forecasting',    icon: LineChart,       label: 'Demand Forecasting',   color: '#F59E0B' },
+    ],
+  },
+  {
+    label: 'Decide · Levers',
+    items: [
+      { path: '/rmm/price-arch',  icon: Boxes,         label: 'Price Architecture',  color: '#3B82F6' },
+      { path: '/rmm/promo',       icon: Tag,           label: 'Promo Optimizer',     color: '#F59E0B' },
+      { path: '/rmm/trade-terms', icon: FileSignature, label: 'Trade Terms (G2N)',   color: '#F97316' },
+      { path: '/rgm',             icon: TrendingUp,    label: 'Revenue Growth',      color: '#8B5CF6' },
+    ],
+  },
+  {
+    label: 'Optimize',
+    items: [
+      { path: '/rmm/three-c',    icon: Scale,       label: '3-C Scorecard',      color: '#6366F1' },
+      { path: '/scenario',       icon: Target,      label: 'Scenario Planner',   color: '#EC4899' },
+      { path: '/rmm/investment', icon: Wallet,      label: 'Investment & Deals', color: '#84CC16' },
+      { path: '/rmm/governance', icon: ShieldCheck, label: 'Margin Governance',  color: '#10B981' },
+    ],
+  },
+  {
+    label: 'Execute & Monitor',
+    items: [
+      { path: '/rmm/platform', icon: Network,   label: 'Platform & Ops',        color: '#06B6D4' },
+      { path: '/supply',       icon: Truck,     label: 'Supply Chain',          color: '#06B6D4' },
+      { path: '/commercial',   icon: Handshake, label: 'Commercial Excellence', color: '#F97316' },
+    ],
+  },
+  {
+    label: 'Reference',
+    items: [
+      { path: '/rmm', icon: Gauge, label: 'RMM Capability Map', color: '#8B5CF6' },
+    ],
+  },
 ]
 
 // Exact match for prefix routes ('/' and '/rmm') so they don't stay active on
@@ -90,11 +116,13 @@ export default function Sidebar() {
 
       {/* Nav */}
       <nav className="flex-1 px-3 py-4 space-y-0.5">
-        <p className="label-xs px-2 py-2 mt-1">Analytics Modules</p>
-        {NAV.map((item) => renderItem(item, pathname))}
-
-        <p className="label-xs px-2 py-2 mt-4">Revenue Margin Mgmt</p>
-        {RMM_NAV.map((item) => renderItem(item, pathname))}
+        {renderItem(HOME, pathname)}
+        {SECTIONS.map((section) => (
+          <div key={section.label}>
+            <p className="label-xs px-2 py-2 mt-3">{section.label}</p>
+            {section.items.map((item) => renderItem(item, pathname))}
+          </div>
+        ))}
       </nav>
 
       {/* Status */}
