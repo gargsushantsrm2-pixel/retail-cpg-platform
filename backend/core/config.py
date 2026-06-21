@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     api_secret_key: str = "dev-secret-key"
     environment: str = "development"
     log_level: str = "INFO"
-    app_name: str = "Retail & CPG Decision Intelligence Platform"
+    app_name: str = "Triax — Revenue Margin Intelligence"
     app_version: str = "1.0.0"
     api_v1_prefix: str = "/api/v1"
 

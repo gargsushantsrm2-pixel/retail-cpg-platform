@@ -109,9 +109,9 @@ export default function Sidebar() {
           <div className="w-7 h-7 rounded-lg bg-accent-blue/20 border border-accent-blue/30 flex items-center justify-center">
             <Activity className="w-4 h-4 text-accent-blue" />
           </div>
-          <span className="font-bold text-sm tracking-tight text-text-primary">Decision Intelligence</span>
+          <span className="font-bold text-base tracking-tight text-text-primary">Triax</span>
         </div>
-        <p className="text-[0.65rem] uppercase tracking-widest text-text-muted pl-9">Retail & CPG Platform</p>
+        <p className="text-[0.65rem] uppercase tracking-widest text-text-muted pl-9">Revenue Margin Intelligence</p>
       </div>
 
       {/* Nav */}
@@ -133,8 +133,10 @@ export default function Sidebar() {
           />
           <span className="text-xs text-text-secondary">{healthy ? 'Backend Online' : 'Backend Offline'}</span>
         </div>
-        <p className="text-[0.62rem] text-text-muted text-center mt-3">
-          CPG Intelligence v1.0
+        <p className="text-[0.62rem] text-text-muted text-center mt-3 leading-relaxed">
+          Triax v1.0<br />
+          © 2026 Sushant Garg &amp; Co.<br />
+          All rights reserved.
         </p>
       </div>
     </aside>

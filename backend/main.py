@@ -26,7 +26,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title=settings.app_name,
     version=settings.app_version,
-    description="Production-grade Retail & CPG Decision Intelligence Platform API",
+    description="Triax — Revenue Margin Intelligence platform API · © Sushant Garg & Co.",
     docs_url="/docs",
     redoc_url="/redoc",
     lifespan=lifespan,
