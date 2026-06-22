@@ -20,6 +20,7 @@ import DemandPlanning       from './pages/rmm/DemandPlanning'
 import InvestmentDeals      from './pages/rmm/InvestmentDeals'
 import PlatformGovernance   from './pages/rmm/PlatformGovernance'
 import Methodology          from './pages/Methodology'
+import Copilot              from './pages/rmm/Copilot'
 
 export default function App() {
   return (
@@ -45,6 +46,7 @@ export default function App() {
           <Route path="rmm/demand"     element={<DemandPlanning />} />
           <Route path="rmm/investment" element={<InvestmentDeals />} />
           <Route path="rmm/platform"   element={<PlatformGovernance />} />
+          <Route path="rmm/copilot"    element={<Copilot />} />
           <Route path="methodology"    element={<Methodology />} />
         </Route>
       </Routes>

@@ -81,3 +81,7 @@ export const fetchStakeholder = (role: string) => api.get(`/rmm/platform/stakeho
 export const fetchOmniChannel = (category?: string) => api.get(`/rmm/platform/omni-channel${category ? `?category=${category}` : ''}`).then(r => r.data)
 export const fetchWorkflow = (product_id: string, proposed_price: number) =>
   api.get(`/rmm/platform/workflow?product_id=${product_id}&proposed_price=${proposed_price}`).then(r => r.data)
+
+// ── RGM Copilot (agent) ───────────────────────────────────────────────────────
+export const fetchCopilotStatus = () => api.get('/rmm/agent/status').then(r => r.data)
+export const askCopilot = (question: string) => api.post('/rmm/agent/ask', { question }).then(r => r.data)

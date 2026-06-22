@@ -8,7 +8,7 @@ from .core.config import get_settings
 from .core.database import engine, Base
 from .models import entities as _entities  # noqa: F401  (register ORM tables)
 from .models import rmm_entities as _rmm_entities  # noqa: F401  (register RMM tables)
-from .api.v1 import executive, rgm, category, forecasting, supply_chain, commercial, data, rmm, rmm_tpm, rmm_ext
+from .api.v1 import executive, rgm, category, forecasting, supply_chain, commercial, data, rmm, rmm_tpm, rmm_ext, rmm_agent
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -51,6 +51,7 @@ app.include_router(data.router, prefix=PREFIX)
 app.include_router(rmm.router, prefix=PREFIX)
 app.include_router(rmm_tpm.router, prefix=PREFIX)
 app.include_router(rmm_ext.router, prefix=PREFIX)
+app.include_router(rmm_agent.router, prefix=PREFIX)
 
 
 @app.get("/health")

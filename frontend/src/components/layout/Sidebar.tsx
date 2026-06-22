@@ -3,7 +3,7 @@ import {
   LayoutDashboard, TrendingUp, ShoppingCart, LineChart,
   Truck, Handshake, Target, Activity, Home,
   Scale, Gauge, Zap, Tag, FileSignature, ShieldCheck,
-  Users, Boxes, PackageSearch, Wallet, Network, BookOpen,
+  Users, Boxes, PackageSearch, Wallet, Network, BookOpen, Bot,
 } from 'lucide-react'
 import { cn } from '../../lib/utils'
 import { useQuery } from '@tanstack/react-query'
@@ -12,6 +12,7 @@ import { checkHealth } from '../../api/client'
 // Single closed-loop journey: Home → Diagnose → Decide (levers) → Optimize →
 // Execute & Monitor → Reference. Replaces the two parallel menus.
 const HOME = { path: '/', icon: Home, label: 'Command Center', color: '#6366F1' }
+const COPILOT = { path: '/rmm/copilot', icon: Bot, label: 'RGM Copilot', color: '#8B5CF6' }
 
 const SECTIONS: { label: string; items: { path: string; icon: any; label: string; color: string }[] }[] = [
   {
@@ -125,6 +126,7 @@ export default function Sidebar({ open = false, onClose }: { open?: boolean; onC
       {/* Nav */}
       <nav className="flex-1 px-3 py-4 space-y-0.5">
         {renderItem(HOME, pathname)}
+        {renderItem(COPILOT, pathname)}
         {SECTIONS.map((section) => (
           <div key={section.label}>
             <p className="label-xs px-2 py-2 mt-3">{section.label}</p>
