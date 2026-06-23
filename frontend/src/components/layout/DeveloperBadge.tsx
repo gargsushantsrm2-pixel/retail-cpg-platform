@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Phone, Mail, Linkedin, Globe, Briefcase, ChevronDown, BadgeCheck } from 'lucide-react'
+import { Phone, Mail, Linkedin, Briefcase, ChevronDown, BadgeCheck } from 'lucide-react'
 
 // Top-right "open to work" badge that expands into a contact card.
 const CONTACT = {
@@ -7,9 +7,8 @@ const CONTACT = {
   tagline: 'Full-Stack & Data/AI Engineer · Builder of Triax',
   phoneDisplay: '+91 90878 60807',
   phone: 'tel:+919087860807',
-  email: 'sgargandcompany@gmail.com',
+  email: 'garg.sushant.srm@gmail.com',
   linkedin: 'https://www.linkedin.com/in/garg-sushant/',
-  portfolio: 'https://sushantgarg.netlify.app',
 }
 
 export default function DeveloperBadge() {
@@ -59,7 +58,6 @@ export default function DeveloperBadge() {
             <ContactRow icon={Phone} label={CONTACT.phoneDisplay} href={CONTACT.phone} />
             <ContactRow icon={Mail} label={CONTACT.email} href={`mailto:${CONTACT.email}`} />
             <ContactRow icon={Linkedin} label="linkedin.com/in/garg-sushant" href={CONTACT.linkedin} external />
-            <ContactRow icon={Globe} label="sushantgarg.netlify.app" href={CONTACT.portfolio} external />
           </div>
 
           <a

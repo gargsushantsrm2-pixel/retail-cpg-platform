@@ -47,12 +47,11 @@ export default function Layout() {
             <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-[0.7rem]">
               <span className="text-accent-green font-medium">● Open to Contract &amp; Full-time</span>
               <a href="tel:+919087860807" className="text-text-muted hover:text-accent-blue">+91 90878 60807</a>
-              <a href="mailto:sgargandcompany@gmail.com" className="text-text-muted hover:text-accent-blue">sgargandcompany@gmail.com</a>
+              <a href="mailto:garg.sushant.srm@gmail.com" className="text-text-muted hover:text-accent-blue">garg.sushant.srm@gmail.com</a>
               <a href="https://www.linkedin.com/in/garg-sushant/" target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-accent-blue">LinkedIn</a>
-              <a href="https://sushantgarg.netlify.app" target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-accent-blue">Portfolio</a>
             </div>
             <p className="text-[0.7rem] text-text-muted">
-              Designed &amp; built by Sushant Garg · © 2026 Sushant Garg &amp; Co. All rights reserved.
+              Designed &amp; built by Sushant Garg · © 2026 Sushant Garg
             </p>
           </footer>
         </div>

@@ -574,8 +574,7 @@ swapfile backstops the pandas analytics.
 *Open to Contract & Full-time opportunities.*
 
 - 📞 +91 90878 60807
-- ✉️ sgargandcompany@gmail.com
+- ✉️ garg.sushant.srm@gmail.com
 - 💼 https://www.linkedin.com/in/garg-sushant/
-- 🌐 https://sushantgarg.netlify.app
 
-© 2026 **Sushant Garg & Co.** All rights reserved.
+© 2026 **Sushant Garg**

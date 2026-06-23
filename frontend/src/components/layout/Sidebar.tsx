@@ -145,8 +145,7 @@ export default function Sidebar({ open = false, onClose }: { open?: boolean; onC
         </div>
         <p className="text-[0.62rem] text-text-muted text-center mt-3 leading-relaxed">
           Triax v1.0<br />
-          © 2026 Sushant Garg &amp; Co.<br />
-          All rights reserved.
+          © 2026 Sushant Garg
         </p>
       </div>
     </aside>
