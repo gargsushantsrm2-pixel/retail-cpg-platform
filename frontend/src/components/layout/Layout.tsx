@@ -49,6 +49,7 @@ export default function Layout() {
               <a href="tel:+919087860807" className="text-text-muted hover:text-accent-blue">+91 90878 60807</a>
               <a href="mailto:garg.sushant.srm@gmail.com" className="text-text-muted hover:text-accent-blue">garg.sushant.srm@gmail.com</a>
               <a href="https://www.linkedin.com/in/garg-sushant/" target="_blank" rel="noopener noreferrer" className="text-text-muted hover:text-accent-blue">LinkedIn</a>
+              <a href="/Sushant_Garg_CV.pdf" download target="_blank" className="text-accent-blue hover:underline font-medium">Download CV</a>
             </div>
             <p className="text-[0.7rem] text-text-muted">
               Designed &amp; built by Sushant Garg · © 2026 Sushant Garg

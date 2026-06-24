@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Phone, Mail, Linkedin, Briefcase, ChevronDown, BadgeCheck } from 'lucide-react'
+import { Phone, Mail, Linkedin, Briefcase, ChevronDown, BadgeCheck, FileDown } from 'lucide-react'
 
 // Top-right "open to work" badge that expands into a contact card.
 const CONTACT = {
@@ -9,6 +9,7 @@ const CONTACT = {
   phone: 'tel:+919087860807',
   email: 'garg.sushant.srm@gmail.com',
   linkedin: 'https://www.linkedin.com/in/garg-sushant/',
+  cv: '/Sushant_Garg_CV.pdf',
 }
 
 export default function DeveloperBadge() {
@@ -58,6 +59,7 @@ export default function DeveloperBadge() {
             <ContactRow icon={Phone} label={CONTACT.phoneDisplay} href={CONTACT.phone} />
             <ContactRow icon={Mail} label={CONTACT.email} href={`mailto:${CONTACT.email}`} />
             <ContactRow icon={Linkedin} label="linkedin.com/in/garg-sushant" href={CONTACT.linkedin} external />
+            <ContactRow icon={FileDown} label="Download CV (PDF)" href={CONTACT.cv} download />
           </div>
 
           <a
@@ -73,11 +75,12 @@ export default function DeveloperBadge() {
   )
 }
 
-function ContactRow({ icon: Icon, label, href, external }: any) {
+function ContactRow({ icon: Icon, label, href, external, download }: any) {
   return (
     <a
       href={href}
       {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      {...(download ? { download: '', target: '_blank' } : {})}
       className="flex items-center gap-3 px-2.5 py-2 rounded-lg text-xs text-text-secondary hover:bg-bg-elevated hover:text-text-primary transition-colors"
     >
       <span className="w-7 h-7 rounded-md bg-bg-elevated flex items-center justify-center shrink-0">
